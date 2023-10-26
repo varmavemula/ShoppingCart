@@ -2,15 +2,7 @@ import React from "react";
 
 
 class CartItem extends React.Component{
-    constructor(){
-        super();
-        this.state={
-            title:"Mobile-phone",
-            price:999,
-            Qnt:1,
-            img:''
-        }  
-    }
+    
     increaseQuantity = () => {
 
         //setState form-I --> uses shallow merge --> that means, update the items in setstate object to the this.state.
@@ -36,17 +28,18 @@ class CartItem extends React.Component{
         console.log("deleted");
     }
     render () {
+        const {title, price, Qnt} = this.props.product;
         return (
             <div className="cart-item">
                 <div className="left-block">
                     {/*we can either use this.state.title, this.state.price and so on or we can call all the variables first then use simply title, price, Qnt like this.*/}
                     {/*By simply creating this "const {title,price,Qnt}=this.state just below the render option*/}
-                    <img alt="product" src={this.state.img}/>
+                    <img alt="product" src={""}/>
                 </div>
                 <div className="right-block">
-                    <div>{this.state.title}</div>
-                    <div>RS {this.state.price}</div>
-                    <div>QTY: {this.state.Qnt}</div>
+                    <div>{title}</div>
+                    <div>RS {price}</div>
+                    <div>QTY: {Qnt}</div>
                     <div className="cart-item-actions">
                        { /*Buttons*/}
                        <img 
