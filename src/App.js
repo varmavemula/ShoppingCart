@@ -34,50 +34,44 @@ class App extends React.Component {
     console.log('Heyy please inc the qty of ', product);
     const { products } = this.state;
     const index = products.indexOf(product);
-
-    products[index].qty += 1;
-
-    this.setState({
-      products
-    });
+    const ref = this.db.collection('products').doc(products[index].id);
+    ref.update({
+      qty: products[index].qty+1
+    })
+    .then(()=>{
+      console.log("success");
+    })
+    .catch(error=>console.log(error));
   };
 
   handleDecreaseQuantity = (product) => {
     console.log('Heyy please inc the qty of ', product);
     const { products } = this.state;
     const index = products.indexOf(product);
-
+    const ref = this.db.collection('products').doc(products[index].id);
     if (products[index].qty === 0) {
       return;
     }
-
-    products[index].qty -= 1;
-
-    this.setState({
-      products
-    });
+    ref.update({
+      qty: products[index].qty -= 1
+    }).then()
+    .catch(error=>console.log(error));
   };
 
 
   handleDeleteProduct = (id) => {
-    const { products } = this.state;
-
-    const items = products.filter((item) => item.id !== id); // [{}]
-
-    this.setState({
-      products: items
-    });
+    const ref = this.db.collection('products').doc(id);
+    ref.delete({
+      ref
+    }).then().catch(error=>console.log(error));
   };
 
   getCartCount = () => {
     const { products } = this.state;
-
     let count = 0;
-
     products.forEach((product) => {
       count += product.qty;
     });
-
     return count;
   };
 
